@@ -20,8 +20,8 @@ router.post('/createUser', async (req, res)=>{
 
 router.post('/userLogin', async (req, res)=>{
     try{
-        const {email, password} = req.body
-        const user = await User.findByCredentials(email, password)
+        const {email, senha} = req.body
+        const user = await User.findByCredentials(email, senha)
         if(!user){
             return res.status(401).send({error: "Falha ao fazer login! Cheque suas credenciais"})
         }

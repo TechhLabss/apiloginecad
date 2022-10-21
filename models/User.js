@@ -38,18 +38,18 @@ const userSchema = mongoose.Schema({
 userSchema.pre('save', async function (next){
     //hashing password
     const user = this
-    if( user.isModified('password')){
-        user.password = await bcrypt.hash(user.password,8)
+    if( user.isModified('senha')){
+        user.senha = await bcrypt.hash(user.senha,8)
     }
 })
 
-userSchema.statics.findByCredentials = async (email,password) => {
+userSchema.statics.findByCredentials = async (email,senha) => {
 
     const user = await User.findOne({email})
     if(!user){
         throw new Error({error: "Credenciais de Login Invalidas"})
     }
-    const isPasswordMatch = await bcrypt.compare(password, user.password)
+    const isPasswordMatch = await bcrypt.compare(senha, user.senha)
     if(!isPasswordMatch){
         throw new Error({error: "Credenciais de Login Invalidas"})
     }
